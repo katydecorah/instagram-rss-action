@@ -23822,10 +23822,10 @@ const { formatFeed, generateFeed } = __webpack_require__(543);
 
 async function feed() {
   try {
-    const fileName = core.getInput("readFileName") || "feed.json";
+    const fileName = core.getInput("fileName");
     const username = core.getInput("instagramHandle");
-    const handles = core.getInput("handles").split(',');
-    const feedTitle = core.getInput("feedTitle") || "Insta brunch";
+    const handles = core.getInput("handles").split(",");
+    const feedTitle = core.getInput("feedTitle");
 
     const metadata = {
       title: feedTitle,

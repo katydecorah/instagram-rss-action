@@ -6,10 +6,10 @@ const { formatFeed, generateFeed } = require("./utils");
 
 async function feed() {
   try {
-    const fileName = core.getInput("readFileName") || "feed.json";
+    const fileName = core.getInput("fileName");
     const username = core.getInput("instagramHandle");
     const handles = core.getInput("handles").split(",");
-    const feedTitle = core.getInput("feedTitle") || "Insta brunch";
+    const feedTitle = core.getInput("feedTitle");
 
     const metadata = {
       title: feedTitle,
