@@ -1,7 +1,7 @@
 {
   "name": "insta-brunch",
   "version": "0.1.0",
-  "description": "Generate an RSS feed from a list of public Instagram accounts",
+  "description": "A GitHub action that generates an RSS feed from a list of public Instagram accounts",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",

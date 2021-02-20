@@ -10,7 +10,7 @@ inputs:
     description: "Your Instagram username, required for authentication"
     required: true
   listOfInstagrams:
-    description: "List of comma delimited Instagram accounts"
+    description: "List of comma delimited Instagram usernames"
     required: true
   fileName:
     description: "The JSON feed file name"

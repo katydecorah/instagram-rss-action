@@ -1,3 +1,3 @@
 # 🧇 Insta brunch
 
-Generate an RSS feed from a list of public Instagram accounts.
+A GitHub action that generates an RSS feed from a list of public Instagram accounts.
