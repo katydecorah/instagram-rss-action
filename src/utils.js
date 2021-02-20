@@ -33,10 +33,11 @@ function formatFeed(feed, handle) {
       return {
         id: p.id,
         url: `https://instagram.com/p/${p.shortcode}`,
-        title: titlize(caption),
+        title: `${titlize(caption)} | ${handle}`,
         content_html: `${formatContent(caption)}<p><img src="${
           p.display_url
         }" alt="" /></p>`,
+        summary: handle,
         authors: [
           {
             name: handle,
