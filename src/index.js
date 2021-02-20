@@ -10,19 +10,21 @@ async function feed() {
     const username = core.getInput("yourInstagram");
     const handles = core.getInput("listOfInstagrams").split(",");
     const feedTitle = core.getInput("feedTitle");
-
     const metadata = {
       title: feedTitle,
       description: `Instagram posts for ${handles.join(", ")}.`,
     };
-
     const client = new Instagram({ username });
 
     let allPosts = [];
     for (const handle of handles) {
-      const posts = await client.getPhotosByUsername({ username: handle });
-      const formatedPosts = formatFeed(posts, handle);
-      allPosts = [...allPosts, ...formatedPosts];
+      try {
+        const posts = await client.getPhotosByUsername({ username: handle });
+        const formatedPosts = formatFeed(posts, handle);
+        allPosts = [...allPosts, ...formatedPosts];
+      } catch (error) {
+        core.setFailed(error);
+      }
     }
     allPosts = allPosts
       .sort((a, b) => new Date(b.date) - new Date(a.date))
