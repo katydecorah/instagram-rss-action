@@ -30,7 +30,7 @@ function formatContent(arr) {
   if (arr.length > 0) {
     return arr.map((line) => `<p>${line}</p>`).join("\n");
   }
-  return;
+  return "";
 }
 
 function formatFeed(feed, handle) {
