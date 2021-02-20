@@ -1,0 +1,23 @@
+on: commit
+
+jobs:
+  generate_rss:
+    runs-on: macOS-latest
+    name: Generate RSS
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: RSS
+        uses: ./
+        with:
+          instagramHandle: "katydecorah"
+          handles:
+            - nextdoorkitchenandbar
+            - flatbread.social
+
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A && git commit -m "Updated feed"
+          git push "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git" HEAD:${GITHUB_REF}

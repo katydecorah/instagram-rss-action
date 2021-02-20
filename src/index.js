@@ -1,30 +1,37 @@
+const core = require("@actions/core");
+// const github = require("@actions/github");
 const Instagram = require("instagram-web-api");
-const { writeFileSync } = require("fs");
+const { writeFile } = require("fs");
 const { formatFeed, generateFeed } = require("./utils");
 
-const username = "katydecorah";
-const handles = ["nextdoorkitchenandbar", "flatbread.social"];
-const feedName = "feed.json";
+async function feed() {
+  try {
+    const fileName = core.getInput("readFileName") || "feed.json";
+    const username = core.getInput("instagramHandle");
+    const handles = core.getInput("handles");
+    const feedTitle = core.getInput("feedTitle") || "Insta brunch";
 
-const metadata = {
-  title: "Insta brunch",
-  home_page_url: "https://katydecorah.com/insta-brunch/",
-  feed_url: "https://katydecorah.com/insta-brunch/feed.json",
-  favicon: "https://katydecorah.com/insta-brunch/favicon.ico",
-};
+    const metadata = {
+      title: feedTitle,
+      description: `Instagram posts for ${handles.join(", ")}.`,
+    };
 
-const client = new Instagram({ username });
+    const client = new Instagram({ username });
 
-(async function () {
-  let allPosts = [];
-  for (const handle of handles) {
-    const posts = await client.getPhotosByUsername({ username: handle });
-    const formatedPosts = formatFeed(posts, handle);
-    allPosts = [...allPosts, ...formatedPosts];
+    let allPosts = [];
+    for (const handle of handles) {
+      const posts = await client.getPhotosByUsername({ username: handle });
+      const formatedPosts = formatFeed(posts, handle);
+      allPosts = [...allPosts, ...formatedPosts];
+    }
+    allPosts = allPosts
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .reverse();
+    const build = generateFeed(allPosts, metadata);
+    await writeFile(fileName, JSON.stringify(build, null, 2));
+  } catch (error) {
+    core.setFailed(error.message);
   }
-  allPosts = allPosts
-    .sort((a, b) => new Date(b.date) - new Date(a.date))
-    .reverse();
-  const build = generateFeed(allPosts, metadata);
-  writeFileSync(feedName, JSON.stringify(build, null, 2));
-})();
+}
+
+module.exports = feed();

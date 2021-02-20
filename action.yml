@@ -1,0 +1,5 @@
+name: Insta brunch
+description: "Generates a JSON RSS feed for public Instagram accounts."
+runs:
+  using: "node12"
+  main: dist/index.js

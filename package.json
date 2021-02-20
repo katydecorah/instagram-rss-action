@@ -7,11 +7,15 @@
     "lint": "eslint .",
     "pretest": "npm run lint",
     "test": "jest",
-    "pretty-quick": "pretty-quick"
+    "pretty-quick": "pretty-quick",
+    "build": "ncc build src/index.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "@zeit/ncc": "^0.22.3",
     "eslint": "^7.20.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.1",
