@@ -42,7 +42,7 @@ function formatFeed(feed, handle) {
             name: handle,
           },
         ],
-        date_published: new Date(p.taken_at_timestamp * 1000),
+        date_published: new Date(p.taken_at_timestamp * 1000).toISOString(),
         image: p.display_url,
       };
     });
