@@ -23844,7 +23844,14 @@ async function feed() {
       .sort((a, b) => new Date(b.date) - new Date(a.date))
       .reverse();
     const build = generateFeed(allPosts, metadata);
-    await writeFile(fileName, JSON.stringify(build, null, 2));
+    await writeFile(
+      fileName,
+      JSON.stringify(build, null, 2),
+      (error, result) => {
+        if (error) core.setFailed(error);
+        return result;
+      }
+    );
   } catch (error) {
     core.setFailed(error.message);
   }
