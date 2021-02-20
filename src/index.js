@@ -14,7 +14,7 @@ const handles = ["katydecorah", "nextdoorkitchenandbar", "flatbread.social"];
     const format = formatFeed(posts, handle);
     all = [...all, ...format];
   }
-  all = all.sort((a, b) => new Date(b.date) - new Date(a.date));
+  all = all.sort((a, b) => new Date(b.date) - new Date(a.date)).reverse();
   const build = generateFeed(all);
   writeFileSync(`feed.json`, build);
 })();
