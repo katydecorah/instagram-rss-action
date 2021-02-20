@@ -350,9 +350,6 @@ Array [
 
 exports[`generateFeed 1`] = `
 Object {
-  "favicon": "https://katydecorah.com/insta-brunch/favicon.ico",
-  "feed_url": "https://katydecorah.com/insta-brunch/feed.json",
-  "home_page_url": "https://katydecorah.com/insta-brunch/",
   "items": Array [
     Object {
       "authors": Array [

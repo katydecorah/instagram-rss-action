@@ -4,9 +4,6 @@ const hashtags = require("./fixtures/hashtags.json");
 
 const metadata = {
   title: "Insta brunch",
-  home_page_url: "https://katydecorah.com/insta-brunch/",
-  feed_url: "https://katydecorah.com/insta-brunch/feed.json",
-  favicon: "https://katydecorah.com/insta-brunch/favicon.ico",
 };
 
 it("formatFeed", () => {

@@ -1,5 +1,5 @@
 {
-  "name": "insta-brunch",
+  "name": "insta-brunch-action",
   "version": "0.1.0",
   "description": "A GitHub action that generates an RSS feed from a list of public Instagram accounts",
   "main": "index.js",
@@ -52,13 +52,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/katydecorah/insta-brunch.git"
+    "url": "git+https://github.com/katydecorah/insta-brunch-action.git"
   },
   "keywords": [
     "github-actions"
   ],
   "bugs": {
-    "url": "https://github.com/katydecorah/insta-brunch/issues"
+    "url": "https://github.com/katydecorah/insta-brunch-action/issues"
   },
-  "homepage": "https://github.com/katydecorah/insta-brunch#readme"
+  "homepage": "https://github.com/katydecorah/insta-brunch-action#readme"
 }
