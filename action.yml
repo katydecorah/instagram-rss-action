@@ -1,14 +1,15 @@
 name: Insta brunch
+author: "@katydecorah"
 description: "Generates a JSON RSS feed for public Instagram accounts."
 runs:
   using: "node12"
   main: dist/index.js
 
 inputs:
-  username:
+  yourInstagram:
     description: "Your Instagram username, required for authentication"
     required: true
-  handles:
+  listOfInstagrams:
     description: "List of comma delimited Instagram accounts"
     required: true
   fileName:

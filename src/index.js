@@ -7,8 +7,8 @@ const { formatFeed, generateFeed } = require("./utils");
 async function feed() {
   try {
     const fileName = core.getInput("fileName");
-    const username = core.getInput("instagramHandle");
-    const handles = core.getInput("handles").split(",");
+    const username = core.getInput("yourInstagram");
+    const handles = core.getInput("listOfInstagrams").split(",");
     const feedTitle = core.getInput("feedTitle");
 
     const metadata = {

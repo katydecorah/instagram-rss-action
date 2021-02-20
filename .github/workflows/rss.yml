@@ -10,8 +10,8 @@ jobs:
       - name: RSS
         uses: ./
         with:
-          instagramHandle: "katydecorah"
-          handles: nextdoorkitchenandbar,flatbread.social,walt_cafe,frontstreetsocialclub,seneca_saratoga,eddiefs_eatery
+          yourInstagram: katydecorah
+          listOfInstagrams: nextdoorkitchenandbar,flatbread.social,walt_cafe,frontstreetsocialclub,seneca_saratoga,eddiefs_eatery
 
       - name: Commit files
         run: |
