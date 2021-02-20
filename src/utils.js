@@ -1,10 +1,7 @@
-function generateFeed(posts) {
+function generateFeed(posts, metadata) {
   return {
     version: "https://jsonfeed.org/version/1.1",
-    title: "Insta brunch",
-    home_page_url: "https://katydecorah.com/insta-brunch/",
-    feed_url: "https://katydecorah.com/insta-brunch/feed.json",
-    favicon: "https://katydecorah.com/insta-brunch/favicon.ico",
+    ...metadata,
     items: posts,
   };
 }
