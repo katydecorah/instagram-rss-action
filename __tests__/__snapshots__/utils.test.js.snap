@@ -177,9 +177,9 @@ Cake by @twobirdsmarketplace</p><p><img src=\\"https://scontent-lga3-2.cdninstag
 
 exports[`generateFeed 1`] = `
 Object {
-  "favicon": "https://katydecorah.com/favicon.ico",
-  "feed_url": "https://katydecorah.com/instagram-rss/feed.json",
-  "home_page_url": "https://katydecorah.com/",
+  "favicon": "https://katydecorah.com/insta-brunch/favicon.ico",
+  "feed_url": "https://katydecorah.com/insta-brunch/feed.json",
+  "home_page_url": "https://katydecorah.com/insta-brunch/",
   "items": Array [
     Object {
       "authors": Array [
@@ -352,7 +352,7 @@ Cake by @twobirdsmarketplace</p><p><img src=\\"https://scontent-lga3-2.cdninstag
       "url": "https://instagram.com/p/B1hh_J3AIk0",
     },
   ],
-  "title": "Instagram feed",
+  "title": "Insta brunch",
   "version": "https://jsonfeed.org/version/1.1",
 }
 `;

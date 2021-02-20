@@ -1,9 +1,9 @@
 {
   "version": "https://jsonfeed.org/version/1.1",
-  "title": "Instagram feed",
-  "home_page_url": "https://katydecorah.com/",
-  "feed_url": "https://katydecorah.com/instagram-rss/feed.json",
-  "favicon": "https://katydecorah.com/favicon.ico",
+  "title": "Insta brunch",
+  "home_page_url": "https://katydecorah.com/insta-brunch/",
+  "feed_url": "https://katydecorah.com/insta-brunch/feed.json",
+  "favicon": "https://katydecorah.com/insta-brunch/favicon.ico",
   "items": [
     {
       "id": "2487431072986791695",
@@ -107,7 +107,7 @@
       "id": "2501245910724650484",
       "url": "https://instagram.com/p/CK2NedUpCX0",
       "title": "Special for the week:  Wood-fired Clams, Shrimp, Mussels in a Spicy Tomato Broth with a couple of slices of our House Focaccia | flatbread.social",
-      "content_html": "<p>Special for the week:  Wood-fired Clams, Shrimp, Mussels in a Spicy Tomato Broth with a couple of slices of our House Focaccia. Sh*t, we’ll wood-fire anything in these bad boys. We’re even working on a wood-fired ice cream special. #harryandlloyd #woodfired #spreadthebread</p><p><img src=\"https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/145346227_918687222295955_4862371116566222278_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=111&_nc_ohc=sSjYs7dcy90AX-ek1_t&tp=1&oh=3791d80d70b7f988569d8a57945e1faa&oe=605C450E\" alt=\"\" /></p>",
+      "content_html": "<p>Special for the week:  Wood-fired Clams, Shrimp, Mussels in a Spicy Tomato Broth with a couple of slices of our House Focaccia. Sh*t, we’ll wood-fire anything in these bad boys. We’re even working on a wood-fired ice cream special. #harryandlloyd #woodfired #spreadthebread</p><p><img src=\"https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/145346227_918687222295955_4862371116566222278_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=111&_nc_ohc=WSa7AbuVXeEAX9x39R_&tp=1&oh=5e26888ae79a5ba754024763fd638ecf&oe=605C450E\" alt=\"\" /></p>",
       "summary": "flatbread.social",
       "authors": [
         {
@@ -115,7 +115,7 @@
         }
       ],
       "date_published": "2021-02-03T22:36:09.000Z",
-      "image": "https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/145346227_918687222295955_4862371116566222278_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=111&_nc_ohc=sSjYs7dcy90AX-ek1_t&tp=1&oh=3791d80d70b7f988569d8a57945e1faa&oe=605C450E"
+      "image": "https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/145346227_918687222295955_4862371116566222278_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=111&_nc_ohc=WSa7AbuVXeEAX9x39R_&tp=1&oh=5e26888ae79a5ba754024763fd638ecf&oe=605C450E"
     },
     {
       "id": "2502665119375566674",
@@ -172,20 +172,6 @@
       ],
       "date_published": "2021-02-17T18:06:42.000Z",
       "image": "https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/150523403_724310135115837_6914540726036647853_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=109&_nc_ohc=GoNBnKseOHEAX-TotLW&tp=1&oh=dc62e285f6e503e37bc78bc904a12de2&oe=605ACA8C"
-    },
-    {
-      "id": "2504784040677448988",
-      "url": "https://instagram.com/p/CLCx9BnpZ0c",
-      "title": "Have you pre-ordered your Valentine’s Day Takeout Package yet? Call 518-309-3249 | nextdoorkitchenandbar",
-      "content_html": "<p>Have you pre-ordered your Valentine’s Day Takeout Package yet? Call 518-309-3249\n\n#valentinesday #valentinesday2021 #518eats #saratogaeats #livebspa #eatnextdoor</p><p><img src=\"https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/p1080x1080/147129805_4389732867706427_6352334930391857280_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=111&_nc_ohc=zbrfGDKBz-EAX92RGir&tp=1&oh=9c36d58ce4b553b32397db56e120c321&oe=605C052E\" alt=\"\" /></p>",
-      "summary": "nextdoorkitchenandbar",
-      "authors": [
-        {
-          "name": "nextdoorkitchenandbar"
-        }
-      ],
-      "date_published": "2021-02-08T19:45:47.000Z",
-      "image": "https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/p1080x1080/147129805_4389732867706427_6352334930391857280_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=111&_nc_ohc=zbrfGDKBz-EAX92RGir&tp=1&oh=9c36d58ce4b553b32397db56e120c321&oe=605C052E"
     },
     {
       "id": "2505551976048502661",
@@ -340,6 +326,20 @@
       ],
       "date_published": "2021-02-19T21:42:59.000Z",
       "image": "https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/151242705_248183446839486_7889442466555577442_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=106&_nc_ohc=cwSDHLDyrFkAX8cK4V9&tp=1&oh=c4108e77da48c7991530bdb9d8895710&oe=605A2D6C"
+    },
+    {
+      "id": "2513398185603474125",
+      "url": "https://instagram.com/p/CLhYlVQAaLN",
+      "title": "Winter White Cosmo | nextdoorkitchenandbar",
+      "content_html": "<p>Winter White Cosmo\n\nGrey Goose Vodka, Cointreau, Lime, White Cranberry\n\n#cosmo #greygoose #vodka #cointreau #saratogadrinks #518drinks #saratogalife #eatnextdoor</p><p><img src=\"https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/152366012_540656420184019_440319592837814325_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=107&_nc_ohc=Rl9xuW1D19cAX8nx6yt&tp=1&oh=6cca8cb2b9e0e5e4e307eab77b12f803&oe=6059EFEB\" alt=\"\" /></p>",
+      "summary": "nextdoorkitchenandbar",
+      "authors": [
+        {
+          "name": "nextdoorkitchenandbar"
+        }
+      ],
+      "date_published": "2021-02-20T17:00:36.000Z",
+      "image": "https://scontent-lga3-2.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/152366012_540656420184019_440319592837814325_n.jpg?_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_cat=107&_nc_ohc=Rl9xuW1D19cAX8nx6yt&tp=1&oh=6cca8cb2b9e0e5e4e307eab77b12f803&oe=6059EFEB"
     }
   ]
 }

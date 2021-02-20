@@ -1,10 +1,10 @@
 function generateFeed(posts) {
   return {
     version: "https://jsonfeed.org/version/1.1",
-    title: "Instagram feed",
-    home_page_url: "https://katydecorah.com/",
-    feed_url: "https://katydecorah.com/instagram-rss/feed.json",
-    favicon: "https://katydecorah.com/favicon.ico",
+    title: "Insta brunch",
+    home_page_url: "https://katydecorah.com/insta-brunch/",
+    feed_url: "https://katydecorah.com/insta-brunch/feed.json",
+    favicon: "https://katydecorah.com/insta-brunch/favicon.ico",
     items: posts,
   };
 }
