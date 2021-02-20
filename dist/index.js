@@ -23829,7 +23829,6 @@ module.exports = function generate_not(it, $keyword, $ruleType) {
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
 const core = __webpack_require__(470);
-// const github = require("@actions/github");
 const Instagram = __webpack_require__(873);
 const { writeFile } = __webpack_require__(747);
 const { formatFeed, generateFeed } = __webpack_require__(543);

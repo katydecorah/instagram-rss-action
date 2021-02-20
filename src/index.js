@@ -1,5 +1,4 @@
 const core = require("@actions/core");
-// const github = require("@actions/github");
 const Instagram = require("instagram-web-api");
 const { writeFile } = require("fs");
 const { formatFeed, generateFeed } = require("./utils");
