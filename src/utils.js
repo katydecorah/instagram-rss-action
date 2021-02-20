@@ -1,20 +1,12 @@
-const { Feed } = require("feed");
-
 function generateFeed(posts) {
-  const feed = new Feed({
+  return {
+    version: "https://jsonfeed.org/version/1.1",
     title: "Instagram feed",
-    description: "Public Instagram accounts I want to watch",
-    id: "https://katydecorah.com/",
-    link: "https://katydecorah.com/",
-    language: "en",
+    home_page_url: "https://katydecorah.com/",
+    feed_url: "https://katydecorah.com/instagram-rss/feed.json",
     favicon: "https://katydecorah.com/favicon.ico",
-  });
-
-  posts.forEach((post) => {
-    feed.addItem(post);
-  });
-
-  return feed.json1();
+    items: posts,
+  };
 }
 
 function titlize(arr) {
@@ -39,18 +31,18 @@ function formatFeed(feed, handle) {
     .map((p) => {
       const caption = getCaption(p.edge_media_to_caption);
       return {
-        title: titlize(caption),
         id: p.id,
-        link: `https://instagram.com/p/${p.shortcode}`,
-        content: `${formatContent(caption)}<p><img src="${
+        url: `https://instagram.com/p/${p.shortcode}`,
+        title: titlize(caption),
+        content_html: `${formatContent(caption)}<p><img src="${
           p.display_url
         }" alt="" /></p>`,
-        author: [
+        authors: [
           {
             name: handle,
           },
         ],
-        date: new Date(p.taken_at_timestamp * 1000),
+        date_published: new Date(p.taken_at_timestamp * 1000),
         image: p.display_url,
       };
     });

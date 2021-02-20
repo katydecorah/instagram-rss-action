@@ -22,7 +22,6 @@
     "pretty-quick": "^3.1.0"
   },
   "dependencies": {
-    "feed": "^4.2.2",
     "instagram-web-api": "^2.2.2"
   },
   "eslintConfig": {
