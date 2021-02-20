@@ -6,9 +6,23 @@ function generateFeed(posts, metadata) {
   };
 }
 
+function removeHashTags(str) {
+  return str
+    .split(" ")
+    .filter((word) => !word.startsWith("#"))
+    .join(" ");
+}
+
+function truncate(str) {
+  const split = str.split(/(\.|\n|!)/)[0];
+  let trimmed = split.substring(0, 50);
+  if (split.length > trimmed.length) trimmed += "…";
+  return trimmed.trim();
+}
+
 function titlize(arr) {
   const firstItem = arr[0];
-  return firstItem ? firstItem.split(/(\.|\n|!)/)[0] : "";
+  return firstItem ? truncate(removeHashTags(firstItem)) : "";
 }
 
 function getCaption(obj) {
@@ -30,8 +44,8 @@ function formatFeed(feed, handle) {
       return {
         id: p.id,
         url: `https://instagram.com/p/${p.shortcode}`,
-        title: `${titlize(caption)} | ${handle}`,
-        content_html: `${formatContent(caption)}<p><img src="${
+        title: titlize(caption),
+        content_html: `<p>@${handle}</p>${formatContent(caption)}<p><img src="${
           p.display_url
         }" alt="" /></p>`,
         summary: handle,
