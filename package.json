@@ -1,7 +1,7 @@
 {
   "name": "insta-brunch",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Generate an RSS feed from a list of public Instagram accounts",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
@@ -10,11 +10,10 @@
     "pretty-quick": "pretty-quick",
     "build": "ncc build src/index.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Katy DeCorah",
+  "license": "MIT",
   "devDependencies": {
     "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0",
     "@zeit/ncc": "^0.22.3",
     "eslint": "^7.20.0",
     "eslint-plugin-node": "^11.1.0",
@@ -50,5 +49,16 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katydecorah/insta-brunch.git"
+  },
+  "keywords": [
+    "github-actions"
+  ],
+  "bugs": {
+    "url": "https://github.com/katydecorah/insta-brunch/issues"
+  },
+  "homepage": "https://github.com/katydecorah/insta-brunch#readme"
 }
