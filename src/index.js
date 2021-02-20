@@ -5,7 +5,7 @@ const { formatFeed, generateFeed } = require("./utils");
 const username = "katydecorah";
 const client = new Instagram({ username });
 
-const handles = ["katydecorah", "nextdoorkitchenandbar", "flatbread.social"];
+const handles = ["nextdoorkitchenandbar", "flatbread.social"];
 
 (async function () {
   let all = [];
