@@ -8,7 +8,7 @@ async function feed() {
   try {
     const fileName = core.getInput("readFileName") || "feed.json";
     const username = core.getInput("instagramHandle");
-    const handles = core.getInput("handles");
+    const handles = core.getInput("handles").split(",");
     const feedTitle = core.getInput("feedTitle") || "Insta brunch";
 
     const metadata = {

@@ -1,4 +1,4 @@
-on: commit
+on: push
 
 jobs:
   generate_rss:
@@ -11,9 +11,7 @@ jobs:
         uses: ./
         with:
           instagramHandle: "katydecorah"
-          handles:
-            - nextdoorkitchenandbar
-            - flatbread.social
+          handles: nextdoorkitchenandbar,flatbread.social,walt_cafe,frontstreetsocialclub,seneca_saratoga,eddiefs_eatery
 
       - name: Commit files
         run: |

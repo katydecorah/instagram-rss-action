@@ -23820,18 +23820,16 @@ const Instagram = __webpack_require__(873);
 const { writeFile } = __webpack_require__(747);
 const { formatFeed, generateFeed } = __webpack_require__(543);
 
-
 async function feed() {
-
   try {
     const fileName = core.getInput("readFileName") || "feed.json";
     const username = core.getInput("instagramHandle");
-    const handles =  core.getInput("handles");
-    const feedTitle = core.getInput('feedTitle') || "Insta brunch";
+    const handles = core.getInput("handles").split(',');
+    const feedTitle = core.getInput("feedTitle") || "Insta brunch";
 
     const metadata = {
       title: feedTitle,
-      description: `Instagram posts for ${handles.join(', ')}.`
+      description: `Instagram posts for ${handles.join(", ")}.`,
     };
 
     const client = new Instagram({ username });
@@ -23847,11 +23845,9 @@ async function feed() {
       .reverse();
     const build = generateFeed(allPosts, metadata);
     await writeFile(fileName, JSON.stringify(build, null, 2));
-  }
-  catch(error) {
+  } catch (error) {
     core.setFailed(error.message);
   }
-
 }
 
 module.exports = feed();
