@@ -17,7 +17,7 @@ jobs:
         uses: ./
         with:
           yourInstagram: katydecorah
-          listOfInstagrams: nextdoorkitchenandbar,flatbread.social,walt_cafe,frontstreetsocialclub,seneca_saratoga,eddiefs_eatery
+          listOfInstagrams: nextdoorkitchenandbar,flatbread.social,walt_cafe,frontstreetsocialclub,seneca_saratoga,sweetmimiscafe,tatutacony
 
       - name: Commit files
         run: |

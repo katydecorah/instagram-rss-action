@@ -20051,7 +20051,9 @@ exports.pathMatch = pathMatch;
 
 /***/ }),
 /* 543 */
-/***/ (function(module) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const core = __webpack_require__(470);
 
 function generateFeed(posts, metadata) {
   return {
@@ -20092,27 +20094,33 @@ function formatContent(arr) {
 }
 
 function formatFeed(feed, handle) {
-  return feed.user.edge_owner_to_timeline_media.edges
-    .map((item) => item.node)
-    .map((p) => {
-      const caption = getCaption(p.edge_media_to_caption);
-      return {
-        id: p.id,
-        url: `https://instagram.com/p/${p.shortcode}`,
-        title: titlize(caption),
-        content_html: `<p>@${handle}</p>${formatContent(caption)}<p><img src="${
-          p.display_url
-        }" alt="" /></p>`,
-        summary: handle,
-        authors: [
-          {
-            name: handle,
-          },
-        ],
-        date_published: new Date(p.taken_at_timestamp * 1000).toISOString(),
-        image: p.display_url,
-      };
-    });
+  if (!feed.user) {
+    core.warning(`Failed to fetch Instagram feed for ${handle}`);
+    return [];
+  }
+  const posts = feed.user.edge_owner_to_timeline_media.edges.map(
+    (item) => item.node
+  );
+  core.info(`Fetched posts for @${handle}`);
+  return posts.map((p) => {
+    const caption = getCaption(p.edge_media_to_caption);
+    return {
+      id: p.id,
+      url: `https://instagram.com/p/${p.shortcode}`,
+      title: titlize(caption),
+      content_html: `<p>@${handle}</p>${formatContent(caption)}<p><img src="${
+        p.display_url
+      }" alt="" /></p>`,
+      summary: handle,
+      authors: [
+        {
+          name: handle,
+        },
+      ],
+      date_published: new Date(p.taken_at_timestamp * 1000).toISOString(),
+      image: p.display_url,
+    };
+  });
 }
 
 module.exports = {
