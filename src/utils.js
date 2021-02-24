@@ -1,4 +1,5 @@
 const core = require("@actions/core");
+const emojiRegex = require("emoji-regex/RGI_Emoji.js");
 
 function generateFeed(posts, metadata) {
   return {
@@ -6,6 +7,16 @@ function generateFeed(posts, metadata) {
     ...metadata,
     items: posts,
   };
+}
+
+function removeEmoji(str) {
+  const regex = emojiRegex();
+  let match;
+  while ((match = regex.exec(str))) {
+    const emoji = match[0];
+    str = str.replaceAll(emoji, "");
+  }
+  return str;
 }
 
 function removeHashTags(str) {
@@ -24,23 +35,40 @@ function truncate(str) {
 
 function titlize(arr) {
   const firstItem = arr[0];
-  return firstItem ? truncate(removeHashTags(firstItem)) : "";
+  return firstItem ? truncate(firstItem) : "";
 }
 
 function getCaption(obj) {
-  return obj.edges.map((item) => item.node).map((item) => item.text);
+  return formatCaption(
+    obj.edges.map((item) => item.node).map((item) => item.text)
+  );
+}
+
+function formatCaption(arr) {
+  if (arr.length > 0) {
+    return arr.reduce((lines, line) => {
+      let formatted = removeEmoji(line);
+      if (formatted) formatted = removeHashTags(formatted);
+      if (formatted) formatted = formatted.trim();
+      if (formatted) lines = [...lines, formatted];
+      return lines;
+    }, []);
+  }
+  return [];
 }
 
 function formatContent(arr) {
   if (arr.length > 0) {
-    return arr.map((line) => `<p>${line}</p>`).join("\n");
+    return arr.map((line) => `<p>${line}</p>`).join("");
   }
   return "";
 }
 
 function formatFeed(feed, handle) {
   if (!feed.user) {
-    core.warning(`Failed to fetch Instagram feed for ${handle}`);
+    core.warning(
+      `Failed to fetch Instagram feed for ${handle}. The username is incorrect or the Instagram API has ratelimited this request.`
+    );
     return [];
   }
   const posts = feed.user.edge_owner_to_timeline_media.edges.map(

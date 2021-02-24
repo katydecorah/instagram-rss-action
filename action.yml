@@ -7,14 +7,14 @@ runs:
 
 inputs:
   yourInstagram:
-    description: "Your Instagram username, required for authentication"
+    description: "Your Instagram username. This is required for authentication with the Instagram API."
     required: true
   listOfInstagrams:
-    description: "List of comma delimited Instagram usernames"
+    description: "A list of comma delimited Instagram usernames."
     required: true
   fileName:
-    description: "The JSON feed file name"
+    description: "The name of the JSON feed file name to be written."
     default: "feed.json"
   feedTitle:
-    description: "The title of the RSS feed"
+    description: "The title of the RSS feed. This will appear as the title of the feed in your RSS reader."
     default: "Insta brunch"
