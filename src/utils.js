@@ -47,13 +47,23 @@ function formatContent(arr) {
   return "";
 }
 
-function video({ video_url, display_url }) {
-  return `<video src="${video_url}" poster="${display_url}" type="video/mp4">Sorry, your browser doesn't support embedded videos.</video>
-`;
+function video({ video_url, display_url, edge_sidecar_to_children }) {
+  if (edge_sidecar_to_children) return sidecar(edge_sidecar_to_children);
+  return `<p><video src="${video_url}" poster="${display_url}" type="video/mp4">Sorry, your browser doesn't support embedded videos.</video></p>`;
 }
 
-function image({ display_url }) {
-  return `<img src="${display_url}" alt="" />`;
+function sidecar(edge_sidecar_to_children) {
+  return edge_sidecar_to_children.edges
+    .map((item) => item.node)
+    .reduce(
+      (str, item) => (str += item.is_video ? video(item) : image(item)),
+      ""
+    );
+}
+
+function image({ display_url, edge_sidecar_to_children }) {
+  if (edge_sidecar_to_children) return sidecar(edge_sidecar_to_children);
+  return `<p><img src="${display_url}" alt="" /></p>`;
 }
 
 function formatFeed(feed, handle) {
@@ -70,11 +80,12 @@ function formatFeed(feed, handle) {
   return posts.map((p) => {
     const caption = getCaption(p.edge_media_to_caption);
     const media = p.is_video ? video(p) : image(p);
+
     return {
       id: p.id,
       url: `https://instagram.com/p/${p.shortcode}`,
       title: titlize(caption),
-      content_html: `<p>@${handle}</p>${formatContent(caption)}<p>${media}</p>`,
+      content_html: `<p>@${handle}</p>${formatContent(caption)}${media}`,
       summary: handle,
       authors: [
         {
