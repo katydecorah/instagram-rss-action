@@ -20066,7 +20066,7 @@ exports.pathMatch = pathMatch;
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
 const core = __webpack_require__(470);
-const emojiRegex = __webpack_require__(466);
+const { removeEmoji, removeHashTags } = __webpack_require__(696);
 
 function generateFeed(posts, metadata) {
   return {
@@ -20074,24 +20074,6 @@ function generateFeed(posts, metadata) {
     ...metadata,
     items: posts,
   };
-}
-
-function removeEmoji(str) {
-  if (!str) return;
-  const regex = emojiRegex();
-  let match;
-  while ((match = regex.exec(str))) {
-    const emoji = match[0];
-    str = str.replaceAll(emoji, "");
-  }
-  return str;
-}
-
-function removeHashTags(str) {
-  return str
-    .split(" ")
-    .filter((word) => !word.startsWith("#"))
-    .join(" ");
 }
 
 function truncate(str) {
@@ -24246,7 +24228,44 @@ module.exports = function ucs2length(str) {
 /* 693 */,
 /* 694 */,
 /* 695 */,
-/* 696 */,
+/* 696 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const emojiRegex = __webpack_require__(466);
+
+function removeEmoji(str) {
+  if (!str) return;
+  const regex = emojiRegex();
+  let strippedStr = str;
+  let match;
+  while ((match = regex.exec(str))) {
+    const emoji = match[0];
+    strippedStr = strippedStr.replace(emoji, "");
+  }
+  return strippedStr;
+}
+
+function removeHashTags(str) {
+  return str
+    .split(" ")
+    .filter((word) => !word.startsWith("#"))
+    .reduce(
+      (arr, word) => [
+        ...arr,
+        ...(word.split("#").length > 0 ? [word.split("#")[0]] : word),
+      ],
+      []
+    )
+    .join(" ");
+}
+
+module.exports = {
+  removeEmoji,
+  removeHashTags,
+};
+
+
+/***/ }),
 /* 697 */
 /***/ (function(__unusedmodule, exports, __webpack_require__) {
 

@@ -1,5 +1,5 @@
 const core = require("@actions/core");
-const emojiRegex = require("emoji-regex/RGI_Emoji.js");
+const { removeEmoji, removeHashTags } = require("./remover");
 
 function generateFeed(posts, metadata) {
   return {
@@ -7,24 +7,6 @@ function generateFeed(posts, metadata) {
     ...metadata,
     items: posts,
   };
-}
-
-function removeEmoji(str) {
-  if (!str) return;
-  const regex = emojiRegex();
-  let match;
-  while ((match = regex.exec(str))) {
-    const emoji = match[0];
-    str = str.replaceAll(emoji, "");
-  }
-  return str;
-}
-
-function removeHashTags(str) {
-  return str
-    .split(" ")
-    .filter((word) => !word.startsWith("#"))
-    .join(" ");
 }
 
 function truncate(str) {
