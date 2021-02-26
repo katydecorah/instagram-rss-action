@@ -20114,6 +20114,17 @@ function formatContent(arr) {
   return "";
 }
 
+function video({video_url, display_url}) {
+  return `<video src="${video_url}" poster="${display_url}" type="video/mp4">Sorry, your browser doesn't support embedded videos.</video>
+`
+}
+
+function image({display_url}) {
+  return `<img src="${
+    display_url
+  }" alt="" />`
+}
+
 function formatFeed(feed, handle) {
   if (!feed.user) {
     core.warning(
@@ -20127,13 +20138,12 @@ function formatFeed(feed, handle) {
   core.info(`Fetched posts for @${handle}`);
   return posts.map((p) => {
     const caption = getCaption(p.edge_media_to_caption);
+    const media = p.is_video ? video(p) : image(p);
     return {
       id: p.id,
       url: `https://instagram.com/p/${p.shortcode}`,
       title: titlize(caption),
-      content_html: `<p>@${handle}</p>${formatContent(caption)}<p><img src="${
-        p.display_url
-      }" alt="" /></p>`,
+      content_html: `<p>@${handle}</p>${formatContent(caption)}<p>${media}</p>`,
       summary: handle,
       authors: [
         {
