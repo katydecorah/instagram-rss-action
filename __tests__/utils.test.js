@@ -8,14 +8,24 @@ const metadata = {
   title: "Insta brunch",
 };
 
-it("formatFeed", () => {
-  expect(formatFeed(feed, "katydecorah")).toMatchSnapshot();
-  expect(formatFeed(hashtags, "eddiefs_eatery")).toMatchSnapshot();
-  expect(formatFeed(video, "tatutacony")).toMatchSnapshot();
-  expect(formatFeed(slides, "draplin")).toMatchSnapshot();
+describe("formatFeed", () => {
+  expect(formatFeed(feed, "katydecorah", true)).toMatchSnapshot();
+  it("hashtags", () => {
+    expect(formatFeed(hashtags, "eddiefs_eatery", true)).toMatchSnapshot();
+  });
+  it("videos", () => {
+    expect(formatFeed(video, "tatutacony", true)).toMatchSnapshot();
+  });
+  it("sidecar", () => {
+    expect(formatFeed(slides, "draplin", true)).toMatchSnapshot();
+  });
+
+  it("turn off pretty", () => {
+    expect(formatFeed(video, "tatutacony", false)).toMatchSnapshot();
+  });
 });
 
 it("generateFeed", () => {
-  const posts = formatFeed(feed, "katydecorah");
+  const posts = formatFeed(feed, "katydecorah", true);
   expect(generateFeed(posts, metadata)).toMatchSnapshot();
 });

@@ -20088,10 +20088,9 @@ function titlize(arr) {
   return firstItem ? truncate(firstItem) : "";
 }
 
-function getCaption(obj) {
-  return formatCaption(
-    obj.edges.map((item) => item.node).map((item) => item.text)
-  );
+function getCaption(obj, pretty) {
+  const caption = obj.edges.map((item) => item.node).map((item) => item.text);
+  return pretty ? formatCaption(caption) : caption;
 }
 
 function formatCaption(arr) {
@@ -20133,7 +20132,7 @@ function image({ display_url, edge_sidecar_to_children }) {
   return `<p><img src="${display_url}" alt="" /></p>`;
 }
 
-function formatFeed(feed, handle) {
+function formatFeed(feed, handle, pretty) {
   if (!feed.user) {
     core.warning(
       `Failed to fetch Instagram feed for ${handle}. The username is incorrect or the Instagram API has ratelimited this request.`
@@ -20145,7 +20144,7 @@ function formatFeed(feed, handle) {
   );
   core.info(`Fetched posts for @${handle}`);
   return posts.map((p) => {
-    const caption = getCaption(p.edge_media_to_caption);
+    const caption = getCaption(p.edge_media_to_caption, pretty);
     const media = p.is_video ? video(p) : image(p);
 
     return {
@@ -23889,6 +23888,8 @@ async function feed() {
     const username = core.getInput("yourInstagram");
     const handles = core.getInput("listOfInstagrams").split(",");
     const feedTitle = core.getInput("feedTitle");
+    const pretty = core.getInput("pretty");
+
     const metadata = {
       title: feedTitle,
       description: `Instagram posts for ${handles.join(", ")}.`,
@@ -23899,8 +23900,8 @@ async function feed() {
     for (const handle of handles) {
       try {
         const posts = await client.getPhotosByUsername({ username: handle });
-        const formatedPosts = formatFeed(posts, handle);
-        allPosts = [...allPosts, ...formatedPosts];
+        const formattedPosts = formatFeed(posts, handle, pretty);
+        allPosts = [...allPosts, ...formattedPosts];
       } catch (error) {
         core.setFailed(error);
       }

@@ -9,6 +9,8 @@ async function feed() {
     const username = core.getInput("yourInstagram");
     const handles = core.getInput("listOfInstagrams").split(",");
     const feedTitle = core.getInput("feedTitle");
+    const pretty = core.getInput("pretty");
+
     const metadata = {
       title: feedTitle,
       description: `Instagram posts for ${handles.join(", ")}.`,
@@ -19,8 +21,8 @@ async function feed() {
     for (const handle of handles) {
       try {
         const posts = await client.getPhotosByUsername({ username: handle });
-        const formatedPosts = formatFeed(posts, handle);
-        allPosts = [...allPosts, ...formatedPosts];
+        const formattedPosts = formatFeed(posts, handle, pretty);
+        allPosts = [...allPosts, ...formattedPosts];
       } catch (error) {
         core.setFailed(error);
       }

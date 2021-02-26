@@ -18,3 +18,6 @@ inputs:
   feedTitle:
     description: "The title of the RSS feed. This will appear as the title of the feed in your RSS reader."
     default: "Insta brunch"
+  pretty:
+    description: "Remove hashtags and emoji from captions."
+    default: true
