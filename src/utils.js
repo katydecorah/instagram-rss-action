@@ -10,6 +10,7 @@ function generateFeed(posts, metadata) {
 }
 
 function removeEmoji(str) {
+  if (!str) return;
   const regex = emojiRegex();
   let match;
   while ((match = regex.exec(str))) {
@@ -45,7 +46,7 @@ function getCaption(obj) {
 }
 
 function formatCaption(arr) {
-  if (arr.length > 0) {
+  if (arr && arr.length > 0) {
     return arr.reduce((lines, line) => {
       let formatted = removeEmoji(line);
       if (formatted) formatted = removeHashTags(formatted);
