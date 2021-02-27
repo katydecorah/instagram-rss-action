@@ -1,7 +1,7 @@
 name: RSS
 on:
   schedule:
-    - cron: "0 17 * * *" # 1 pm EST
+    - cron: "0 17 * * *"
   push:
     branches:
       - main

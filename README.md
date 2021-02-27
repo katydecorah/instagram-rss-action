@@ -19,9 +19,10 @@ To create an Instagram RSS feed that updates once a day and automatically commit
 
 ```yml
 name: RSS
-"on":
+on:
   schedule:
     - cron: "0 17 * * *"
+
 jobs:
   generate_rss:
     runs-on: macOS-latest
@@ -30,18 +31,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: RSS
-        uses: katydecorah/instagram-rss-action@v0.1.0
+        uses: katydecorah/instagram-rss-action@0.1.0
         with:
-          yourInstagram: YOUR-INSTRAGRAM
-          listOfInstagrams: "nytcooking,sohlae,swissmiss,soulfirefarm"
+          yourInstagram: YOUR_INSTAGRAM_HERE
+          listOfInstagrams: nytcooking,sohlae,swissmiss,soulfirefarm
       - name: Commit files
-        run: >
+        run: |
           git config --local user.email "action@github.com"
-
           git config --local user.name "GitHub Action"
-
           git add -A && git commit -m "Updated instagram.json"
-
           git push "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git" HEAD:${GITHUB_REF}
 ```
 

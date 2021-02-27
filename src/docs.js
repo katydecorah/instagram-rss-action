@@ -21,23 +21,16 @@ ${comment.end}`
 }
 
 // SETUP
-
-let yml = yaml.load(readFileSync("./.github/workflows/rss.yml", "utf8"));
-delete yml.on.push;
-yml.jobs.generate_rss.steps = yml.jobs.generate_rss.steps.reduce(
-  (arr, step) => {
-    if (step.name === "RSS") {
-      step.uses = `katydecorah/instagram-rss-action@v${version}`;
-      step.with.yourInstagram = "YOUR-INSTRAGRAM";
-    }
-    arr.push(step);
-    return arr;
-  },
-  []
-);
+let yml = readFileSync("./.github/workflows/rss.yml", "utf8");
+// TODO: clean this up!
 writeDocs(
   `\`\`\`yml
-${yaml.dump(yml, { lineWidth: 200 })}
+${yml
+  .replace("uses: ./", `uses: katydecorah/instagram-rss-action@${version}`)
+  .replace("push:\n", "")
+  .replace("branches:\n", "")
+  .replace("- main\n", "")
+  .replace("yourInstagram: katydecorah", "yourInstagram: YOUR_INSTAGRAM_HERE")}
 \`\`\`
 `,
   "SETUP"
