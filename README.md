@@ -12,7 +12,7 @@ If you see this error: `TypeError: Cannot read property 'user' of undefined`. Ei
 
 To create an Instagram RSS feed that updates once a day and automatically commits the feed to your repository:
 
-1. Make sure your GitHub repository has [GitHub Pages](https://pages.github.com/) enabled. Your feed URL will be whatever your domain is and then `instagram.json` (Example: `https://my-website/instagram.json`). You can also change the feed filename using the `fileName` option.
+1. Make sure your GitHub repository has [GitHub Pages](https://pages.github.com/) enabled. Your feed URL will be whatever your domain is and then `instagram.json` (Example: https://katydecorah.com/instagram-rss-action/instagram.json). You can also change the feed filename using the `fileName` option.
 1. Create `.github/workflows/instram-rss.yml` file using the following template:
 
 <!-- START GENERATED SETUP -->
