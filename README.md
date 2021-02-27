@@ -42,9 +42,7 @@ jobs:
 
           git add -A && git commit -m "Updated instagram.json"
 
-          git push
-          "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
-          HEAD:${GITHUB_REF}
+          git push "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git" HEAD:${GITHUB_REF}
 ```
 
 <!-- END GENERATED SETUP -->

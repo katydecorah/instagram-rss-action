@@ -37,7 +37,7 @@ yml.jobs.generate_rss.steps = yml.jobs.generate_rss.steps.reduce(
 );
 writeDocs(
   `\`\`\`yml
-${yaml.dump(yml)}
+${yaml.dump(yml, { lineWidth: 200 })}
 \`\`\`
 `,
   "SETUP"
