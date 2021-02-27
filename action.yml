@@ -1,4 +1,4 @@
-name: "Insta brunch"
+name: "Instagram RSS"
 author: "@katydecorah"
 description: "Generate an RSS feed from a list of public Instagram accounts"
 runs:
@@ -14,10 +14,10 @@ inputs:
     required: true
   fileName:
     description: "The name of the JSON feed file name to be written."
-    default: "feed.json"
+    default: "instagram.json"
   feedTitle:
     description: "The title of the RSS feed. This will appear as the title of the feed in your RSS reader."
-    default: "Insta brunch"
+    default: "Instagram"
   pretty:
     description: "Remove hashtags and emoji from captions."
     default: true

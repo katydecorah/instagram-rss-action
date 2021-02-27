@@ -12,7 +12,7 @@ If you see this error: `TypeError: Cannot read property 'user' of undefined`. Ei
 
 To create an Instagram RSS feed that updates once a day and automatically commits the feed to your repository:
 
-1. Make sure your GitHub repository has [GitHub Pages](https://pages.github.com/) enabled. Your feed URL will be whatever your domain is and then `feed.json` (https://my-website/feed.json). You can also change the feed filename using the `fileName` option.
+1. Make sure your GitHub repository has [GitHub Pages](https://pages.github.com/) enabled. Your feed URL will be whatever your domain is and then `instagram.json` (Example: `https://my-website/instagram.json`). You can also change the feed filename using the `fileName` option.
 1. Create `.github/workflows/instram-rss.yml` file using the following template:
 
 <!-- START GENERATED SETUP -->
@@ -40,7 +40,7 @@ jobs:
 
           git config --local user.name 'GitHub Action'
 
-          git add -A && git commit -m 'Update feed.json'
+          git add -A && git commit -m 'Update instagram.json'
 
           git push
           'https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git'
@@ -55,8 +55,8 @@ jobs:
 
 - `yourInstagram`: Required. Your Instagram username. This is required for authentication with the Instagram API.
 - `listOfInstagrams`: Required. Public Instagram usernames comma delimited. Example: `nytfood,sohlae,swissmiss`.
-- `fileName`: The name of the JSON feed file name to be written. Default: `feed.json`.
-- `feedTitle`: The title of the RSS feed. This will appear as the title of the feed in your RSS reader. Default: `Insta brunch`.
+- `fileName`: The name of the JSON feed file name to be written. Default: `instagram.json`.
+- `feedTitle`: The title of the RSS feed. This will appear as the title of the feed in your RSS reader. Default: `Instagram`.
 - `pretty`: Remove hashtags and emoji from captions. Default: `true`.
 
 <!-- END GENERATED OPTIONS -->
