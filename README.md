@@ -21,7 +21,7 @@ To create an Instagram RSS feed that updates once a day and automatically commit
 name: RSS
 "on":
   schedule:
-    - cron: 0 17 * * *
+    - cron: "0 17 * * *"
 jobs:
   generate_rss:
     runs-on: macOS-latest
