@@ -36,14 +36,14 @@ jobs:
           listOfInstagrams: "nytcooking,sohlae,swissmiss,soulfirefarm"
       - name: Commit files
         run: >
-          git config --local user.email 'action@github.com'
+          git config --local user.email "action@github.com"
 
-          git config --local user.name 'GitHub Action'
+          git config --local user.name "GitHub Action"
 
-          git add -A && git commit -m 'Update instagram.json'
+          git add -A && git commit -m "Updated instagram.json"
 
           git push
-          'https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git'
+          "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
           HEAD:${GITHUB_REF}
 ```
 
