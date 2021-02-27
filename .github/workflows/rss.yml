@@ -17,7 +17,7 @@ jobs:
         uses: ./
         with:
           yourInstagram: katydecorah
-          listOfInstagrams: nytfood,sohlae,swissmiss
+          listOfInstagrams: nytcooking,sohlae,swissmiss,soulfirefarm
       - name: Commit files
         run: |
           git config --local user.email 'action@github.com'

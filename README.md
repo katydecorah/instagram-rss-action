@@ -33,7 +33,7 @@ jobs:
         uses: katydecorah/instagram-rss-action@v0.1.0
         with:
           yourInstagram: YOUR-INSTRAGRAM
-          listOfInstagrams: "nytfood,sohlae,swissmiss"
+          listOfInstagrams: "nytcooking,sohlae,swissmiss,soulfirefarm"
       - name: Commit files
         run: >
           git config --local user.email 'action@github.com'
@@ -54,7 +54,7 @@ jobs:
 <!-- START GENERATED OPTIONS -->
 
 - `yourInstagram`: Required. Your Instagram username. This is required for authentication with the Instagram API.
-- `listOfInstagrams`: Required. Public Instagram usernames comma delimited. Example: `nytfood,sohlae,swissmiss`.
+- `listOfInstagrams`: Required. Public Instagram usernames comma delimited.
 - `fileName`: The name of the JSON feed file name to be written. Default: `instagram.json`.
 - `feedTitle`: The title of the RSS feed. This will appear as the title of the feed in your RSS reader. Default: `Instagram`.
 - `pretty`: Remove hashtags and emoji from captions. Default: `true`.
