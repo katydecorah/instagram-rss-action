@@ -1,7 +1,7 @@
 name: RSS
 on:
   schedule:
-    - cron: "0 7,19 * * *" # 7 AM and 7 PM
+    - cron: "0 17 * * *" # 1 pm EST
   push:
     branches:
       - main
@@ -17,11 +17,10 @@ jobs:
         uses: ./
         with:
           yourInstagram: katydecorah
-          listOfInstagrams: nextdoorkitchenandbar,flatbread.social,walt_cafe,frontstreetsocialclub,seneca_saratoga,sweetmimiscafe,tatutacony
-
+          listOfInstagrams: nytfood,sohlae,swissmiss
       - name: Commit files
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -A && git commit -m "🧇"
-          git push "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git" HEAD:${GITHUB_REF}
+          git config --local user.email 'action@github.com'
+          git config --local user.name 'GitHub Action'
+          git add -A && git commit -m 'Update feed.json'
+          git push 'https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git' HEAD:${GITHUB_REF}

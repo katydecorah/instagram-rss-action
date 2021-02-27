@@ -2,6 +2,53 @@
 
 A GitHub action that generates an RSS feed from a list of public Instagram accounts.
 
+## Note about the Instagram API
+
+This action uses [instagram-web-api](https://www.npmjs.com/package/instagram-web-api). The action only requires authentication in the form of your Instagram username and can only fetch posts from public Instagram accounts.
+
+If you see this error: `TypeError: Cannot read property 'user' of undefined`. Either the Instagram account you entered is invalid or Instragram is ratelimiting your request. If the latter, try reducing your schedule to once or twice a day.
+
+## Setup
+
+To create an Instagram RSS feed that updates once a day and automatically commits the feed to your repository:
+
+1. Make sure your GitHub repository has [GitHub Pages](https://pages.github.com/) enabled. Your feed URL will be whatever your domain is and then `feed.json` (https://my-website/feed.json). You can also change the feed filename using the `fileName` option.
+1. Create `.github/workflows/instram-rss.yml` file using the following template:
+
+<!-- START GENERATED SETUP -->
+
+```yml
+name: RSS
+"on":
+  schedule:
+    - cron: 0 17 * * *
+jobs:
+  generate_rss:
+    runs-on: macOS-latest
+    name: Generate RSS
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: RSS
+        uses: katydecorah/instagram-rss-action@v0.1.0
+        with:
+          yourInstagram: YOUR-INSTRAGRAM
+          listOfInstagrams: "nytfood,sohlae,swissmiss"
+      - name: Commit files
+        run: >
+          git config --local user.email 'action@github.com'
+
+          git config --local user.name 'GitHub Action'
+
+          git add -A && git commit -m 'Update feed.json'
+
+          git push
+          'https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git'
+          HEAD:${GITHUB_REF}
+```
+
+<!-- END GENERATED SETUP -->
+
 ## Options
 
 <!-- START GENERATED OPTIONS -->
