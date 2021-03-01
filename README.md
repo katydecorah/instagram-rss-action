@@ -37,6 +37,7 @@ jobs:
           yourInstagram: YOUR_INSTAGRAM_HERE
           listOfInstagrams: nytcooking,sohlae,swissmiss,soulfirefarm
       - name: Commit files
+        if: ${{ success() && steps.rss.outputs.RSS_STATUS == "success" }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
