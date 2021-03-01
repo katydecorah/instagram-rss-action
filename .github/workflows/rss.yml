@@ -3,8 +3,6 @@ on:
   schedule:
     - cron: "0 17 * * *"
   push:
-    branches:
-      - main
 
 jobs:
   generate_rss:
@@ -14,11 +12,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: RSS
+        id: rss
         uses: ./
         with:
           yourInstagram: katydecorah
           listOfInstagrams: nytcooking,sohlae,swissmiss,soulfirefarm
       - name: Commit files
+        if: ${{ success() && steps.rss.outputs.RSS_STATUS == 'success' }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
