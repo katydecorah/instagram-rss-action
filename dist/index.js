@@ -23916,7 +23916,7 @@ async function feed() {
         JSON.stringify(build, null, 2),
         (error, result) => {
           if (error) return core.setFailed(error);
-          core.setOutput('RSS_STATUS', 'success');
+          core.setOutput("RSS_STATUS", "success");
           return result;
         }
       );
