@@ -24,21 +24,23 @@ async function feed() {
         const formattedPosts = formatFeed(posts, handle, pretty);
         allPosts = [...allPosts, ...formattedPosts];
       } catch (error) {
-        core.setFailed(error);
+        core.warning(error);
       }
     }
-    allPosts = allPosts
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
-      .reverse();
-    const build = generateFeed(allPosts, metadata);
-    await writeFile(
-      fileName,
-      JSON.stringify(build, null, 2),
-      (error, result) => {
-        if (error) core.setFailed(error);
-        return result;
-      }
-    );
+    if (allPosts.length) {
+      allPosts = allPosts
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .reverse();
+      const build = generateFeed(allPosts, metadata);
+      await writeFile(
+        fileName,
+        JSON.stringify(build, null, 2),
+        (error, result) => {
+          if (error) core.setFailed(error);
+          return result;
+        }
+      );
+    }
   } catch (error) {
     core.setFailed(error.message);
   }
