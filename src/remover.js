@@ -1,4 +1,4 @@
-const emojiRegex = require("emoji-regex/RGI_Emoji.js");
+const emojiRegex = require("emoji-regex");
 
 function removeEmoji(str) {
   if (!str) return;

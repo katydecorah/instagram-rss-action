@@ -2,7 +2,7 @@ name: "Instagram RSS"
 author: "@katydecorah"
 description: "Generate an RSS feed from a list of public Instagram accounts"
 runs:
-  using: "node12"
+  using: "node16"
   main: "dist/index.js"
 
 inputs:

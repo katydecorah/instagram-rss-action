@@ -2,38 +2,42 @@
   "name": "instagram-rss-action",
   "version": "0.2.0",
   "description": "A GitHub action that generates an RSS feed from a list of public Instagram accounts",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
     "test": "jest",
     "pretty-quick": "pretty-quick",
-    "build": "ncc build src/index.js"
+    "build": "ncc build src/index.js",
+    "prepare": "husky install"
   },
   "author": "Katy DeCorah",
   "license": "MIT",
   "devDependencies": {
-    "@actions/core": "^1.2.6",
-    "@zeit/ncc": "^0.22.3",
-    "eslint": "^7.20.0",
+    "@actions/core": "^1.6.0",
+    "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "husky": "^4.3.8",
-    "jest": "^26.6.3",
-    "js-yaml": "^4.0.0",
-    "lint-staged": "^10.5.4",
-    "prettier": "^2.2.1",
-    "pretty-quick": "^3.1.0"
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.0",
+    "jest": "^27.4.7",
+    "js-yaml": "^4.1.0",
+    "lint-staged": "^12.1.7",
+    "prettier": "^2.5.1",
+    "pretty-quick": "^3.1.3"
   },
   "dependencies": {
-    "emoji-regex": "^9.2.1",
+    "@vercel/ncc": "^0.33.1",
+    "emoji-regex": "^10.0.0",
     "instagram-web-api": "^2.2.2"
   },
   "eslintConfig": {
-    "extends": "eslint:recommended",
-    "plugins": [
-      "node",
+    "extends": [
+      "eslint:recommended",
       "prettier"
+    ],
+    "plugins": [
+      "node"
     ],
     "env": {
       "node": true,
@@ -42,14 +46,6 @@
     },
     "parserOptions": {
       "ecmaVersion": 2020
-    }
-  },
-  "engines": {
-    "node": ">=12"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
     }
   },
   "repository": {
