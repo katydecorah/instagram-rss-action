@@ -1,7 +1,7 @@
-const core = require("@actions/core");
-const { removeEmoji, removeHashTags } = require("./remover");
+import { warning, info } from "@actions/core";
+import { removeEmoji, removeHashTags } from "./remover.js";
 
-function generateFeed(posts, metadata) {
+export function generateFeed(posts, metadata) {
   return {
     version: "https://jsonfeed.org/version/1.1",
     ...metadata,
@@ -65,9 +65,9 @@ function image({ display_url, edge_sidecar_to_children }) {
   return `<p><img src="${display_url}" alt="" /></p>`;
 }
 
-function formatFeed(feed, handle, pretty) {
+export function formatFeed(feed, handle, pretty) {
   if (!feed.user) {
-    core.warning(
+    warning(
       `Failed to fetch Instagram feed for ${handle}. The username is incorrect or the Instagram API has ratelimited this request.`
     );
     return [];
@@ -75,7 +75,7 @@ function formatFeed(feed, handle, pretty) {
   const posts = feed.user.edge_owner_to_timeline_media.edges.map(
     (item) => item.node
   );
-  core.info(`Fetched posts for @${handle}`);
+  info(`Fetched posts for @${handle}`);
   return posts.map((p) => {
     const caption = getCaption(p.edge_media_to_caption, pretty);
     const media = p.is_video ? video(p) : image(p);
@@ -96,8 +96,3 @@ function formatFeed(feed, handle, pretty) {
     };
   });
 }
-
-module.exports = {
-  formatFeed,
-  generateFeed,
-};

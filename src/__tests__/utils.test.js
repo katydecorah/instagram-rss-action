@@ -1,8 +1,8 @@
-const { formatFeed, generateFeed } = require("../src/utils");
-const feed = require("./fixtures/feed.json");
-const hashtags = require("./fixtures/hashtags.json");
-const video = require("./fixtures/video.json");
-const slides = require("./fixtures/slides.json");
+import { formatFeed, generateFeed } from "../utils.js";
+import feed from "./fixtures/feed.json";
+import hashtags from "./fixtures/hashtags.json";
+import video from "./fixtures/video.json";
+import slides from "./fixtures/slides.json";
 
 const metadata = {
   title: "Insta brunch",

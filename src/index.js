@@ -1,15 +1,15 @@
-const core = require("@actions/core");
-const Instagram = require("instagram-web-api");
-const { writeFile } = require("fs");
-const { formatFeed, generateFeed } = require("./utils");
+import { getInput, warning, setFailed, setOutput } from "@actions/core";
+import Instagram from "instagram-web-api";
+import { writeFile } from "fs";
+import { formatFeed, generateFeed } from "./utils.js";
 
 async function feed() {
   try {
-    const fileName = core.getInput("fileName");
-    const username = core.getInput("yourInstagram");
-    const handles = core.getInput("listOfInstagrams").split(",");
-    const feedTitle = core.getInput("feedTitle");
-    const pretty = core.getInput("pretty");
+    const fileName = getInput("fileName");
+    const username = getInput("yourInstagram");
+    const handles = getInput("listOfInstagrams").split(",");
+    const feedTitle = getInput("feedTitle");
+    const pretty = getInput("pretty");
 
     const metadata = {
       title: feedTitle,
@@ -24,7 +24,7 @@ async function feed() {
         const formattedPosts = formatFeed(posts, handle, pretty);
         allPosts = [...allPosts, ...formattedPosts];
       } catch (error) {
-        core.warning(error);
+        warning(error);
       }
     }
     if (allPosts.length) {
@@ -36,15 +36,15 @@ async function feed() {
         fileName,
         JSON.stringify(build, null, 2),
         (error, result) => {
-          if (error) return core.setFailed(error);
-          core.setOutput("RSS_STATUS", "success");
+          if (error) return setFailed(error);
+          setOutput("RSS_STATUS", "success");
           return result;
         }
       );
     }
   } catch (error) {
-    core.setFailed(error.message);
+    setFailed(error.message);
   }
 }
 
-module.exports = feed();
+export default feed();

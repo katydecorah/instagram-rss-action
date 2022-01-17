@@ -1,4 +1,4 @@
-const { removeEmoji, removeHashTags } = require("../src/remover");
+import { removeEmoji, removeHashTags } from "../remover.js";
 
 it("removeEmoji", () => {
   expect(removeEmoji("🧹")).toEqual("");

@@ -41847,212 +41847,6 @@ WError.prototype.cause = function we_cause(c)
 
 /***/ }),
 
-/***/ 4351:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const core = __nccwpck_require__(2186);
-const Instagram = __nccwpck_require__(5503);
-const { writeFile } = __nccwpck_require__(7147);
-const { formatFeed, generateFeed } = __nccwpck_require__(1608);
-
-async function feed() {
-  try {
-    const fileName = core.getInput("fileName");
-    const username = core.getInput("yourInstagram");
-    const handles = core.getInput("listOfInstagrams").split(",");
-    const feedTitle = core.getInput("feedTitle");
-    const pretty = core.getInput("pretty");
-
-    const metadata = {
-      title: feedTitle,
-      description: `Instagram posts for ${handles.join(", ")}.`,
-    };
-    const client = new Instagram({ username });
-
-    let allPosts = [];
-    for (const handle of handles) {
-      try {
-        const posts = await client.getPhotosByUsername({ username: handle });
-        const formattedPosts = formatFeed(posts, handle, pretty);
-        allPosts = [...allPosts, ...formattedPosts];
-      } catch (error) {
-        core.warning(error);
-      }
-    }
-    if (allPosts.length) {
-      allPosts = allPosts
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .reverse();
-      const build = generateFeed(allPosts, metadata);
-      await writeFile(
-        fileName,
-        JSON.stringify(build, null, 2),
-        (error, result) => {
-          if (error) return core.setFailed(error);
-          core.setOutput("RSS_STATUS", "success");
-          return result;
-        }
-      );
-    }
-  } catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-module.exports = feed();
-
-
-/***/ }),
-
-/***/ 2550:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const emojiRegex = __nccwpck_require__(8212);
-
-function removeEmoji(str) {
-  if (!str) return;
-  const regex = emojiRegex();
-  let strippedStr = str;
-  let match;
-  while ((match = regex.exec(str))) {
-    const emoji = match[0];
-    strippedStr = strippedStr.replace(emoji, "");
-  }
-  return strippedStr;
-}
-
-function removeHashTags(str) {
-  return str
-    .split(" ")
-    .filter((word) => !word.startsWith("#"))
-    .reduce(
-      (arr, word) => [
-        ...arr,
-        ...(word.split("#").length > 0 ? [word.split("#")[0]] : word),
-      ],
-      []
-    )
-    .join(" ");
-}
-
-module.exports = {
-  removeEmoji,
-  removeHashTags,
-};
-
-
-/***/ }),
-
-/***/ 1608:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-const core = __nccwpck_require__(2186);
-const { removeEmoji, removeHashTags } = __nccwpck_require__(2550);
-
-function generateFeed(posts, metadata) {
-  return {
-    version: "https://jsonfeed.org/version/1.1",
-    ...metadata,
-    items: posts,
-  };
-}
-
-function truncate(str) {
-  const split = str.split(/(\.|\n|!)/)[0];
-  let trimmed = split.substring(0, 50);
-  if (split.length > trimmed.length) trimmed += "…";
-  return trimmed.trim();
-}
-
-function titlize(arr) {
-  const firstItem = arr[0];
-  return firstItem ? truncate(firstItem) : "";
-}
-
-function getCaption(obj, pretty) {
-  const caption = obj.edges.map((item) => item.node).map((item) => item.text);
-  return pretty ? formatCaption(caption) : caption;
-}
-
-function formatCaption(arr) {
-  if (arr && arr.length > 0) {
-    return arr.reduce((lines, line) => {
-      let formatted = removeEmoji(line);
-      if (formatted) formatted = removeHashTags(formatted);
-      if (formatted) formatted = formatted.trim();
-      if (formatted) lines = [...lines, formatted];
-      return lines;
-    }, []);
-  }
-  return [];
-}
-
-function formatContent(arr) {
-  if (arr.length > 0) {
-    return arr.map((line) => `<p>${line}</p>`).join("");
-  }
-  return "";
-}
-
-function video({ video_url, display_url, edge_sidecar_to_children }) {
-  if (edge_sidecar_to_children) return sidecar(edge_sidecar_to_children);
-  return `<p><video src="${video_url}" poster="${display_url}" type="video/mp4">Sorry, your browser doesn't support embedded videos.</video></p>`;
-}
-
-function sidecar(edge_sidecar_to_children) {
-  return edge_sidecar_to_children.edges
-    .map((item) => item.node)
-    .reduce(
-      (str, item) => (str += item.is_video ? video(item) : image(item)),
-      ""
-    );
-}
-
-function image({ display_url, edge_sidecar_to_children }) {
-  if (edge_sidecar_to_children) return sidecar(edge_sidecar_to_children);
-  return `<p><img src="${display_url}" alt="" /></p>`;
-}
-
-function formatFeed(feed, handle, pretty) {
-  if (!feed.user) {
-    core.warning(
-      `Failed to fetch Instagram feed for ${handle}. The username is incorrect or the Instagram API has ratelimited this request.`
-    );
-    return [];
-  }
-  const posts = feed.user.edge_owner_to_timeline_media.edges.map(
-    (item) => item.node
-  );
-  core.info(`Fetched posts for @${handle}`);
-  return posts.map((p) => {
-    const caption = getCaption(p.edge_media_to_caption, pretty);
-    const media = p.is_video ? video(p) : image(p);
-
-    return {
-      id: p.id,
-      url: `https://instagram.com/p/${p.shortcode}`,
-      title: titlize(caption),
-      content_html: `<p>@${handle}</p>${formatContent(caption)}${media}`,
-      summary: handle,
-      authors: [
-        {
-          name: handle,
-        },
-      ],
-      date_published: new Date(p.taken_at_timestamp * 1000).toISOString(),
-      image: p.display_url,
-    };
-  });
-}
-
-module.exports = {
-  formatFeed,
-  generateFeed,
-};
-
-
-/***/ }),
-
 /***/ 9491:
 /***/ ((module) => {
 
@@ -42417,6 +42211,46 @@ module.exports = JSON.parse('["Mozilla/5.0 (Windows; U; ; en-NZ) AppleWebKit/527
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__nccwpck_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nccwpck_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__nccwpck_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
 /******/ 		__nccwpck_require__.nmd = (module) => {
@@ -42431,12 +42265,211 @@ module.exports = JSON.parse('["Mozilla/5.0 (Windows; U; ; en-NZ) AppleWebKit/527
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(4351);
-/******/ 	module.exports = __webpack_exports__;
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+// ESM COMPAT FLAG
+__nccwpck_require__.r(__webpack_exports__);
+
+// EXPORTS
+__nccwpck_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ src)
+});
+
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __nccwpck_require__(2186);
+// EXTERNAL MODULE: ./node_modules/instagram-web-api/lib/index.js
+var lib = __nccwpck_require__(5503);
+var lib_default = /*#__PURE__*/__nccwpck_require__.n(lib);
+// EXTERNAL MODULE: external "fs"
+var external_fs_ = __nccwpck_require__(7147);
+// EXTERNAL MODULE: ./node_modules/emoji-regex/index.js
+var emoji_regex = __nccwpck_require__(8212);
+var emoji_regex_default = /*#__PURE__*/__nccwpck_require__.n(emoji_regex);
+;// CONCATENATED MODULE: ./src/remover.js
+
+
+function removeEmoji(str) {
+  if (!str) return;
+  const regex = emoji_regex_default()();
+  let strippedStr = str;
+  let match;
+  while ((match = regex.exec(str))) {
+    const emoji = match[0];
+    strippedStr = strippedStr.replace(emoji, "");
+  }
+  return strippedStr;
+}
+
+function removeHashTags(str) {
+  return str
+    .split(" ")
+    .filter((word) => !word.startsWith("#"))
+    .reduce(
+      (arr, word) => [
+        ...arr,
+        ...(word.split("#").length > 0 ? [word.split("#")[0]] : word),
+      ],
+      []
+    )
+    .join(" ");
+}
+
+;// CONCATENATED MODULE: ./src/utils.js
+
+
+
+function generateFeed(posts, metadata) {
+  return {
+    version: "https://jsonfeed.org/version/1.1",
+    ...metadata,
+    items: posts,
+  };
+}
+
+function truncate(str) {
+  const split = str.split(/(\.|\n|!)/)[0];
+  let trimmed = split.substring(0, 50);
+  if (split.length > trimmed.length) trimmed += "…";
+  return trimmed.trim();
+}
+
+function titlize(arr) {
+  const firstItem = arr[0];
+  return firstItem ? truncate(firstItem) : "";
+}
+
+function getCaption(obj, pretty) {
+  const caption = obj.edges.map((item) => item.node).map((item) => item.text);
+  return pretty ? formatCaption(caption) : caption;
+}
+
+function formatCaption(arr) {
+  if (arr && arr.length > 0) {
+    return arr.reduce((lines, line) => {
+      let formatted = removeEmoji(line);
+      if (formatted) formatted = removeHashTags(formatted);
+      if (formatted) formatted = formatted.trim();
+      if (formatted) lines = [...lines, formatted];
+      return lines;
+    }, []);
+  }
+  return [];
+}
+
+function formatContent(arr) {
+  if (arr.length > 0) {
+    return arr.map((line) => `<p>${line}</p>`).join("");
+  }
+  return "";
+}
+
+function video({ video_url, display_url, edge_sidecar_to_children }) {
+  if (edge_sidecar_to_children) return sidecar(edge_sidecar_to_children);
+  return `<p><video src="${video_url}" poster="${display_url}" type="video/mp4">Sorry, your browser doesn't support embedded videos.</video></p>`;
+}
+
+function sidecar(edge_sidecar_to_children) {
+  return edge_sidecar_to_children.edges
+    .map((item) => item.node)
+    .reduce(
+      (str, item) => (str += item.is_video ? video(item) : utils_image(item)),
+      ""
+    );
+}
+
+function utils_image({ display_url, edge_sidecar_to_children }) {
+  if (edge_sidecar_to_children) return sidecar(edge_sidecar_to_children);
+  return `<p><img src="${display_url}" alt="" /></p>`;
+}
+
+function formatFeed(feed, handle, pretty) {
+  if (!feed.user) {
+    (0,core.warning)(
+      `Failed to fetch Instagram feed for ${handle}. The username is incorrect or the Instagram API has ratelimited this request.`
+    );
+    return [];
+  }
+  const posts = feed.user.edge_owner_to_timeline_media.edges.map(
+    (item) => item.node
+  );
+  (0,core.info)(`Fetched posts for @${handle}`);
+  return posts.map((p) => {
+    const caption = getCaption(p.edge_media_to_caption, pretty);
+    const media = p.is_video ? video(p) : utils_image(p);
+
+    return {
+      id: p.id,
+      url: `https://instagram.com/p/${p.shortcode}`,
+      title: titlize(caption),
+      content_html: `<p>@${handle}</p>${formatContent(caption)}${media}`,
+      summary: handle,
+      authors: [
+        {
+          name: handle,
+        },
+      ],
+      date_published: new Date(p.taken_at_timestamp * 1000).toISOString(),
+      image: p.display_url,
+    };
+  });
+}
+
+;// CONCATENATED MODULE: ./src/index.js
+
+
+
+
+
+async function feed() {
+  try {
+    const fileName = (0,core.getInput)("fileName");
+    const username = (0,core.getInput)("yourInstagram");
+    const handles = (0,core.getInput)("listOfInstagrams").split(",");
+    const feedTitle = (0,core.getInput)("feedTitle");
+    const pretty = (0,core.getInput)("pretty");
+
+    const metadata = {
+      title: feedTitle,
+      description: `Instagram posts for ${handles.join(", ")}.`,
+    };
+    const client = new (lib_default())({ username });
+
+    let allPosts = [];
+    for (const handle of handles) {
+      try {
+        const posts = await client.getPhotosByUsername({ username: handle });
+        const formattedPosts = formatFeed(posts, handle, pretty);
+        allPosts = [...allPosts, ...formattedPosts];
+      } catch (error) {
+        (0,core.warning)(error);
+      }
+    }
+    if (allPosts.length) {
+      allPosts = allPosts
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .reverse();
+      const build = generateFeed(allPosts, metadata);
+      await (0,external_fs_.writeFile)(
+        fileName,
+        JSON.stringify(build, null, 2),
+        (error, result) => {
+          if (error) return (0,core.setFailed)(error);
+          (0,core.setOutput)("RSS_STATUS", "success");
+          return result;
+        }
+      );
+    }
+  } catch (error) {
+    (0,core.setFailed)(error.message);
+  }
+}
+
+/* harmony default export */ const src = (feed());
+
+})();
+
+module.exports = __webpack_exports__;
 /******/ })()
 ;
