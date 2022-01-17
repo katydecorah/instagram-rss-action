@@ -8,7 +8,7 @@
     "pretest": "npm run lint",
     "test": "jest",
     "pretty-quick": "pretty-quick",
-    "build": "ncc build src/index.js && node src/docs.js"
+    "build": "ncc build src/index.js"
   },
   "author": "Katy DeCorah",
   "license": "MIT",

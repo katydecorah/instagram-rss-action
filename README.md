@@ -15,13 +15,18 @@ To create an Instagram RSS feed that updates once a day and automatically commit
 1. Make sure your GitHub repository has [GitHub Pages](https://pages.github.com/) enabled. Your feed URL will be whatever your domain is and then `instagram.json` (Example: https://katydecorah.com/instagram-rss-action/instagram.json). You can also change the feed filename using the `fileName` option.
 1. Create `.github/workflows/instram-rss.yml` file using the following template:
 
-<!-- START GENERATED SETUP -->
+<!-- START GENERATED DOCUMENTATION -->
+
+## Set up the workflow
+
+To use this action, create a new workflow in `.github/workflows` and modify it as needed:
 
 ```yml
 name: RSS
 on:
   schedule:
     - cron: "0 17 * * *"
+  push:
 
 jobs:
   generate_rss:
@@ -32,29 +37,29 @@ jobs:
         uses: actions/checkout@v2
       - name: RSS
         id: rss
-        uses: katydecorah/instagram-rss-action@0.1.0
+        uses: katydecorah/instagram-rss-action@v0.2.0
         with:
-          yourInstagram: YOUR_INSTAGRAM_HERE
+          yourInstagram: instagram_handle
           listOfInstagrams: nytcooking,sohlae,swissmiss,soulfirefarm
       - name: Commit files
         if: ${{ success() && steps.rss.outputs.RSS_STATUS == 'success' }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add -A && git commit -m "Updated instagram.json"
-          git push "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git" HEAD:${GITHUB_REF}
+          git commit -am "Updated instagram.json"
+          git push
 ```
 
-<!-- END GENERATED SETUP -->
-
-## Options
-
-<!-- START GENERATED OPTIONS -->
+## Action options
 
 - `yourInstagram`: Required. Your Instagram username. This is required for authentication with the Instagram API.
+
 - `listOfInstagrams`: Required. Public Instagram usernames comma delimited.
+
 - `fileName`: The name of the JSON feed file name to be written. Default: `instagram.json`.
+
 - `feedTitle`: The title of the RSS feed. This will appear as the title of the feed in your RSS reader. Default: `Instagram`.
+
 - `pretty`: Remove hashtags and emoji from captions. Default: `true`.
 
-<!-- END GENERATED OPTIONS -->
+<!-- END GENERATED DOCUMENTATION -->
