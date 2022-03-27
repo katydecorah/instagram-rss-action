@@ -1,11 +1,6 @@
 import { warning, info } from "@actions/core";
 import { removeEmoji, removeHashTags } from "./remover.js";
 
-export type Metadata = {
-  title: string;
-  description: string;
-};
-
 export function generateFeed(posts: Feed[], metadata: Metadata) {
   return {
     version: "https://jsonfeed.org/version/1.1",
@@ -71,7 +66,8 @@ function sidecar({ edges }) {
   return edges
     .map((item: Edge) => item.node)
     .reduce(
-      (str, item) => (str += item.is_video ? video(item) : image(item)),
+      (str: string, item: Node) =>
+        (str += item.is_video ? video(item) : image(item)),
       ""
     );
 }
@@ -208,4 +204,9 @@ export type EdgeOwnerToTimelineMedia = {
     end_cursor: string;
   };
   edges: Edge[];
+};
+
+export type Metadata = {
+  title: string;
+  description: string;
 };
