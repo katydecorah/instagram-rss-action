@@ -5,19 +5,21 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "pretest": "npm run lint",
     "test": "jest",
     "pretty-quick": "pretty-quick",
-    "build": "ncc build src/index.js",
+    "build": "ncc build src/index.ts",
     "prepare": "husky install"
   },
   "author": "Katy DeCorah",
   "license": "MIT",
   "devDependencies": {
     "@actions/core": "^1.6.0",
-    "@babel/eslint-parser": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
     "@vercel/ncc": "^0.33.3",
     "eslint": "^8.12.0",
     "eslint-config-prettier": "^8.5.0",
@@ -28,7 +30,8 @@
     "jest": "^27.5.1",
     "js-yaml": "^4.1.0",
     "prettier": "^2.6.1",
-    "pretty-quick": "^3.1.3"
+    "pretty-quick": "^3.1.3",
+    "typescript": "^4.6.3"
   },
   "dependencies": {
     "emoji-regex": "^10.0.1",

@@ -1,7 +1,7 @@
 import { getInput, warning, setFailed, setOutput } from "@actions/core";
 import Instagram from "instagram-web-api";
-import { writeFile } from "fs";
-import { formatFeed, generateFeed } from "./utils";
+import { writeFile } from "fs/promises";
+import { Feed, formatFeed, generateFeed } from "./utils";
 
 async function feed() {
   try {
@@ -15,32 +15,34 @@ async function feed() {
       title: feedTitle,
       description: `Instagram posts for ${handles.join(", ")}.`,
     };
+
     const client = new Instagram({ username });
 
-    let allPosts = [];
+    let allPosts: Feed[] | [] = [];
+
     for (const handle of handles) {
       try {
         const posts = await client.getPhotosByUsername({ username: handle });
-        const formattedPosts = formatFeed(posts, handle, pretty);
-        allPosts = [...allPosts, ...formattedPosts];
+        const formattedPosts = formatFeed(posts, handle, pretty === "true");
+        if (formattedPosts) allPosts = [...allPosts, ...formattedPosts];
       } catch (error) {
         warning(error);
       }
     }
-    if (allPosts.length) {
-      allPosts = allPosts
-        .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .reverse();
-      const build = generateFeed(allPosts, metadata);
-      await writeFile(
-        fileName,
-        JSON.stringify(build, null, 2),
-        (error, result) => {
-          if (error) return setFailed(error);
-          setOutput("RSS_STATUS", "success");
-          return result;
-        }
-      );
+    if (!allPosts.length) return;
+    allPosts = allPosts
+      .sort(
+        (a: { date: Date }, b: { date: Date }) =>
+          new Date(b.date).valueOf() - new Date(a.date).valueOf()
+      )
+      .reverse();
+    const build = generateFeed(allPosts, metadata);
+
+    try {
+      await writeFile(fileName, JSON.stringify(build, null, 2));
+      setOutput("RSS_STATUS", "success");
+    } catch (error) {
+      throw new Error(error);
     }
   } catch (error) {
     setFailed(error.message);
