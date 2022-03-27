@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v3
       - name: RSS
         id: rss
-        uses: katydecorah/instagram-rss-action@v0.2.0
+        uses: katydecorah/instagram-rss-action@v0.3.0
         with:
           yourInstagram: instagram_handle
           listOfInstagrams: nytcooking,sohlae,swissmiss,soulfirefarm
