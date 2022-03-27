@@ -1,5 +1,5 @@
 import { warning, info } from "@actions/core";
-import { removeEmoji, removeHashTags } from "./remover";
+import { removeEmoji, removeHashTags } from "./remover.js";
 
 export type Metadata = {
   title: string;

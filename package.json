@@ -47,5 +47,11 @@
   "bugs": {
     "url": "https://github.com/katydecorah/instagram-rss-action/issues"
   },
-  "homepage": "https://github.com/katydecorah/instagram-rss-action#readme"
+  "homepage": "https://github.com/katydecorah/instagram-rss-action#readme",
+  "jest": {
+    "moduleNameMapper": {
+      "..?/utils.js$": "<rootDir>/src/utils.ts",
+      "..?/remover.js$": "<rootDir>/src/remover.ts"
+    }
+  }
 }
