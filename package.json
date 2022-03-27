@@ -1,6 +1,6 @@
 {
   "name": "instagram-rss-action",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A GitHub action that generates an RSS feed from a list of public Instagram accounts",
   "main": "dist/index.js",
   "scripts": {
