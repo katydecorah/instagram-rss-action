@@ -1,6 +1,6 @@
-const emojiRegex = require("emoji-regex");
+import emojiRegex from "emoji-regex";
 
-function removeEmoji(str) {
+export function removeEmoji(str: string): string | undefined {
   if (!str) return;
   const regex = emojiRegex();
   let strippedStr = str;
@@ -12,7 +12,7 @@ function removeEmoji(str) {
   return strippedStr;
 }
 
-function removeHashTags(str) {
+export function removeHashTags(str: string): string {
   return str
     .split(" ")
     .filter((word) => !word.startsWith("#"))
@@ -25,8 +25,3 @@ function removeHashTags(str) {
     )
     .join(" ");
 }
-
-module.exports = {
-  removeEmoji,
-  removeHashTags,
-};

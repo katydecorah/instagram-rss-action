@@ -4,49 +4,38 @@
   "description": "A GitHub action that generates an RSS feed from a list of public Instagram accounts",
   "main": "dist/index.js",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "pretest": "npm run lint",
     "test": "jest",
     "pretty-quick": "pretty-quick",
-    "build": "ncc build src/index.js",
+    "build": "ncc build src/index.ts",
     "prepare": "husky install"
   },
   "author": "Katy DeCorah",
   "license": "MIT",
   "devDependencies": {
     "@actions/core": "^1.6.0",
-    "eslint": "^8.7.0",
-    "eslint-config-prettier": "^8.3.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^27.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "@vercel/ncc": "^0.33.3",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jest": "^26.1.3",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^7.0.0",
-    "jest": "^27.4.7",
+    "jest": "^27.5.1",
     "js-yaml": "^4.1.0",
-    "lint-staged": "^12.1.7",
-    "prettier": "^2.5.1",
-    "pretty-quick": "^3.1.3"
+    "prettier": "^2.6.1",
+    "pretty-quick": "^3.1.3",
+    "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@vercel/ncc": "^0.33.1",
-    "emoji-regex": "^10.0.0",
+    "emoji-regex": "^10.0.1",
     "instagram-web-api": "^2.2.2"
-  },
-  "eslintConfig": {
-    "extends": [
-      "eslint:recommended",
-      "prettier"
-    ],
-    "plugins": [
-      "node"
-    ],
-    "env": {
-      "node": true,
-      "es6": true,
-      "jest": true
-    },
-    "parserOptions": {
-      "ecmaVersion": 2020
-    }
   },
   "repository": {
     "type": "git",
@@ -58,5 +47,11 @@
   "bugs": {
     "url": "https://github.com/katydecorah/instagram-rss-action/issues"
   },
-  "homepage": "https://github.com/katydecorah/instagram-rss-action#readme"
+  "homepage": "https://github.com/katydecorah/instagram-rss-action#readme",
+  "jest": {
+    "moduleNameMapper": {
+      "..?/utils.js$": "<rootDir>/src/utils.ts",
+      "..?/remover.js$": "<rootDir>/src/remover.ts"
+    }
+  }
 }
