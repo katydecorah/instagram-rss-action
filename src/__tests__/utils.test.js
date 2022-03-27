@@ -9,7 +9,9 @@ const metadata = {
 };
 
 describe("formatFeed", () => {
-  expect(formatFeed(feed, "katydecorah", true)).toMatchSnapshot();
+  it("regular", () => {
+    expect(formatFeed(feed, "katydecorah", true)).toMatchSnapshot();
+  });
   it("hashtags", () => {
     expect(formatFeed(hashtags, "eddiefs_eatery", true)).toMatchSnapshot();
   });
