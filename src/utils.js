@@ -1,5 +1,5 @@
 import { warning, info } from "@actions/core";
-import { removeEmoji, removeHashTags } from "./remover.js";
+import { removeEmoji, removeHashTags } from "./remover";
 
 export function generateFeed(posts, metadata) {
   return {

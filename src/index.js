@@ -1,7 +1,7 @@
 import { getInput, warning, setFailed, setOutput } from "@actions/core";
 import Instagram from "instagram-web-api";
 import { writeFile } from "fs";
-import { formatFeed, generateFeed } from "./utils.js";
+import { formatFeed, generateFeed } from "./utils";
 
 async function feed() {
   try {
