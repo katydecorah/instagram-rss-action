@@ -3,7 +3,6 @@
   "version": "0.2.0",
   "description": "A GitHub action that generates an RSS feed from a list of public Instagram accounts",
   "main": "dist/index.js",
-  "type": "module",
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "pretest": "npm run lint",
