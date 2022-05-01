@@ -34,7 +34,7 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "emoji-regex": "^10.0.1",
+    "emoji-regex": "^10.1.0",
     "instagram-web-api": "^2.2.2"
   },
   "repository": {
